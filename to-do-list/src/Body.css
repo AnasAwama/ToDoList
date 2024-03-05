@@ -3,35 +3,35 @@
     justify-content: center;
     align-items: center;
     border:0.1px solid rgba(93, 93, 93, 0.5);
-    border-radius: 5px;
-    background-color: rgb(159, 255, 255, 0.5);
-    height: 650px;
-    width: 1000px; 
-    margin-left: 260px;
+    border-radius: 40px;
+    background-color: rgba(212, 212, 212, 0.5);
+    height: 620px;
+    width: 740px; 
+    margin-left: 350px;
     }
 
 .Border{
-    display: flow;
-    flex-direction: row;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     border:0.1px solid rgb(37, 37, 37);
     width: 230px;
-    height: 550px;
+    height: 590px;
     border-radius: 10px;
-    margin-top: 60px;
-    margin-left: -35px;
-    margin-right: 40px;
+    margin-top: 3px;
+    margin-right: 4px;
     background-color: white;
 }
 
 .alignRow{
     display: flex;
-    
+    flex-direction: row;
     }
 
 .marginLeft{
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     margin: 20px;
 }
@@ -41,9 +41,16 @@
     border-bottom: 2px solid rgb(171, 0, 0);
     width: 150px;
     margin-left: 10px;
+    margin-top: 5px;
     
 }
 
+.rowAlign{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 .smallBorder{
     border-top: 2px;
     border-right: 2px;
@@ -52,7 +59,7 @@
     border-color: black;
     border-style: solid;
     border-radius: 3px;
-    width: 185px;
+    width: 190px;
     height: 36px;
     padding: 3.8px;
     margin-bottom: 10px;
@@ -64,3 +71,55 @@
     opacity:0.2;
     margin-top:10px
 }
+.paddingTop{
+    padding-top: 40px;
+}
+
+button{
+    border-collapse:collapse;
+    border:none;
+}
+.itemAlign{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h4{
+    margin-left: 400px;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .backGround {
+      width: 90%; 
+      margin-left: auto; 
+      margin-right: auto;
+    }
+    
+    .Border {
+        width: 200px;
+        height: 550px;
+        margin-left: auto; 
+        margin-right: 4px; 
+    }
+    
+    .underline{
+        margin-left: 20px;
+        margin-top: 1px;
+        
+    }
+    .opacity{
+        margin-top: 5px;
+    }
+    h4{
+        margin-left: 100px;
+    }
+    .smallBorder{
+        width: 170px;
+        padding: 3.8px;
+        margin-bottom: 5px;
+    
+    }
+  }
+  

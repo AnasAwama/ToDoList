@@ -7,7 +7,7 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            list:["To do", "In progress","Done"],
+            list:["In progress","Done"],
             item : ["High priority", "Medium priority" ,"Low priority", ],
             tasks:{
             high:["Send Email"],
@@ -69,19 +69,43 @@ class Home extends React.Component {
             </div>
             </nav>
             <div>
-                <h4 style={{margin:'10px'}}>to do list</h4>
+                <h4>to do list  <button class="opacity">+</button></h4>
                 <div class="backGround">
                     <div class="alignRow" >
-                        {this.state.list.map((list,index1)=>(<div key={index1}>
+                            <div class="Border">
+                                <div class="marginLeft">
+                                    <p>To do <span class="opacity"> | </span>2</p>
+                                    <div class="underline"></div><br/>
+                                    {this.state.item.map((item, index)=>(
+                                    <div key={index}>
+                                        <p>{item}I<span class="opacity"> | </span>4</p>
+                                        <div class="rowAlign">{this.myTasks(index)}</div>
+                                        <div class="itemAlign">
+                                            <button class="opacity">+</button>
+                                            <button class="opacity"><img src={require(`./image/edit.png`)}></img></button>
+                                        </div>
+                                        {index !== this.state.item.length - 1 && (
+                                            <div style={{ borderColor: 'black' }} className="underline opacity"></div>
+                                        )}
+                                        <br/>
+                                    </div>
+                                    ))}
+                                </div>
+                            </div>
+                    </div>
+                    <div class="alignRow" >
+                        {this.state.list.map((list,indexItem)=>(<div key={indexItem}>
                             <div class="Border">
                                 <div class="marginLeft">
                                     <p>{list} <span class="opacity"> | </span>2</p>
                                     <div class="underline"></div><br/>
                                     {this.state.item.map((item, index)=>(
                                     <div key={index}>
-                                        {index1 ===0 &&(<p>{item}I<span class="opacity"> | </span>4</p>)}
-                                        <div class="rowAlign"><div class="rowContainer">{this.myTasks(index)}</div>                                        </div>
-                                        <div class="opacity">+</div>
+                                        <div class="rowAlign paddingTop">{this.myTasks(index)}</div>
+                                        <div class="itemAlign">
+                                            <button class="opacity">+</button>
+                                            <button class="opacity"><img src={require(`./image/edit.png`)}></img></button>
+                                        </div>
                                         {index !== this.state.item.length - 1 && (
                                             <div style={{ borderColor: 'black' }} className="underline opacity"></div>
                                         )}
