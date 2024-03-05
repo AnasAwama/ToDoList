@@ -1,0 +1,66 @@
+.backGround{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:0.1px solid rgba(93, 93, 93, 0.5);
+    border-radius: 5px;
+    background-color: rgb(159, 255, 255, 0.5);
+    height: 650px;
+    width: 1000px; 
+    margin-left: 260px;
+    }
+
+.Border{
+    display: flow;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border:0.1px solid rgb(37, 37, 37);
+    width: 230px;
+    height: 550px;
+    border-radius: 10px;
+    margin-top: 60px;
+    margin-left: -35px;
+    margin-right: 40px;
+    background-color: white;
+}
+
+.alignRow{
+    display: flex;
+    
+    }
+
+.marginLeft{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.underline{
+    flex-grow: 1;
+    border-bottom: 2px solid rgb(171, 0, 0);
+    width: 150px;
+    margin-left: 10px;
+    
+}
+
+.smallBorder{
+    border-top: 2px;
+    border-right: 2px;
+    border-bottom: 2px;
+    border-left: 4px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 3px;
+    width: 185px;
+    height: 36px;
+    padding: 3.8px;
+    margin-bottom: 10px;
+
+}
+
+.opacity{
+    color:"black";
+    opacity:0.2;
+    margin-top:10px
+}
