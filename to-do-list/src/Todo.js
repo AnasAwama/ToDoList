@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useState} from "react";
 import { BrowserRouter as Router, Routes,Route,Link } from "react-router-dom";
-import './Body.css';
+import './style/Body.css';
+import  {AddItem}  from "./Model/addItem.jsx";
 
 class Home extends React.Component {
     
@@ -12,10 +13,16 @@ class Home extends React.Component {
             tasks:{
             high:["Send Email"],
             medium:["Do Project", "contact Manager"],
-            low:["send Project"]
-            },
+            low:["send Project"],
+            openAddItem : false
+        },
         }
     }
+    
+    addItems = ()=>{
+        this.setState(prevState=>({openAddItem:!prevState.openAddItem}))
+        
+    };
 
     myTasks(index) {
         let task;
@@ -30,6 +37,8 @@ class Home extends React.Component {
         return(task)
     }
     render() {
+        
+
         return(
         <body>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -69,7 +78,9 @@ class Home extends React.Component {
             </div>
             </nav>
             <div>
-                <h4>to do list  <button class="opacity">+</button></h4>
+            
+                <h4>to do list<button class="opacity" onClick={this.addItems}> + </button></h4>
+                {this.state.openAddItem && <AddItem openAddItem={this.state.openAddItem} setOpenItem={this.addItems}/>}
                 <div class="backGround">
                     <div class="alignRow" >
                             <div class="Border">
@@ -82,6 +93,7 @@ class Home extends React.Component {
                                         <div class="rowAlign">{this.myTasks(index)}</div>
                                         <div class="itemAlign">
                                             <button class="opacity">+</button>
+                                            
                                             <button class="opacity"><img src={require(`./image/edit.png`)}></img></button>
                                         </div>
                                         {index !== this.state.item.length - 1 && (
