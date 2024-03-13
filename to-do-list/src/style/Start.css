@@ -34,7 +34,7 @@
     color: white;
     border-radius: 5px;
     width: 70px;
-    position: relative; /* Add position relative */
+    position: relative; 
 }
 
 .ButtonStyle:hover {

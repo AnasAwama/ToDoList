@@ -1,0 +1,136 @@
+.BorderLog{
+    background-color: rgb(179 241 255 / 15%);
+    border: solid rgba(0, 0, 0, 0.10);
+    box-shadow: 3px 4px 12px 3px rgb(0 0 0 / 10%); 
+    border-radius: 40px;
+    height: 300px;
+    width: 540px;
+    margin-left:500px;
+    margin-top: 150px;
+    
+}
+
+.Logh1{
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    font-family:"poor story";
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.formMid{
+    display: inline;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 13px;
+    margin-left: 154px;
+    border-radius: 6px;
+    border: solid 1px rgba(0, 0, 0, 0.25);
+    
+    background-color: transparent;
+    font-family:"poor story";
+    font-size: large;
+    font-weight: 500;
+}
+
+.formMid:focus{
+    outline: none;
+}
+.formMid::placeholder{
+    color: rgb(41, 41, 41,0.45);
+
+text-align: center;
+font-family:"poor story";
+font-size: large;
+font-weight: 500;
+}
+
+.formbut{
+    background-color: aqua;
+    border-color: aqua;
+    color: white;
+    border-radius: 5px;
+    width: 85px;
+    position: relative; 
+}
+
+.formbut:hover {
+    background-color: rgb(0, 231, 231);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.formbut span::after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 50%; /* Adjust top position */
+    right: 10px; /* Adjust right position */
+    transform: translateY(-50%); /* Center vertically */
+    transition: opacity 0.5s ease; /* Apply transition to opacity only */
+}
+
+.formbut:hover span {
+    padding-right: 10px; /* Increase padding for space for the arrow */
+}
+
+.formbut:hover span::after {
+    opacity: 1;
+    right: 15px; 
+}
+
+.FontSize{
+    margin-left: 180px;
+    font-size: 16px;
+    font-family:"poor story";
+    font-weight: 500;
+}
+.FontColor{
+color:blue;
+}
+
+.FontColor:visited{
+    color:hotpink;
+}
+
+.FontColor:hover{
+    color:rgb(105, 155, 255);
+}
+.FontColor:active{
+    color:blue;
+}
+.EyeMargin{
+    display: flex;
+    position: absolute;
+    right: 525px;
+    top: 54.1%; 
+    transform: translateY(-50%); 
+    opacity: 0.5;
+}
+@media (max-width: 1500px) {
+    .BorderLog {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .Logh1 {
+        font-size: 24px; 
+    }
+
+    .formMid {
+
+        margin-left: 191px;
+    }
+
+    .formbut {
+
+        margin-left: 265px;
+    }
+
+    .EyeMargin{
+        right: 150px;
+        top: 51.5%; 
+    }
+}

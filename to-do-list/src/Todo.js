@@ -40,8 +40,8 @@ class Home extends React.Component {
         
 
         return(
-        <body>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <body className="bgColor" >
+            <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Navbar</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@ class Home extends React.Component {
             </nav>
             <div>
             
-                <h4>to do list<button class="opacity" onClick={this.addItems}> + </button></h4>
+                <h4>to do list<button class="opacityButton" onClick={this.addItems}> + </button></h4>
                 {this.state.openAddItem && <AddItem openAddItem={this.state.openAddItem} setOpenItem={this.addItems}/>}
                 <div class="backGround">
                     <div class="alignRow" >
@@ -92,9 +92,9 @@ class Home extends React.Component {
                                         <p>{item}I<span class="opacity"> | </span>4</p>
                                         <div class="rowAlign">{this.myTasks(index)}</div>
                                         <div class="itemAlign">
-                                            <button class="opacity">+</button>
+                                            <button class="opacityButton">+</button>
                                             
-                                            <button class="opacity"><img src={require(`./image/edit.png`)}></img></button>
+                                            <button class="opacityButton"><img src={require(`./image/edit.png`)}></img></button>
                                         </div>
                                         {index !== this.state.item.length - 1 && (
                                             <div style={{ borderColor: 'black' }} className="underline opacity"></div>
