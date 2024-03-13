@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import './style/login.css';
 
-export class LogIn extends React.Component {
+class LogIn extends React.Component {
 
     render(){
         return(
@@ -63,4 +63,5 @@ export class LogIn extends React.Component {
         );
     }
 }
+
 export default LogIn;
