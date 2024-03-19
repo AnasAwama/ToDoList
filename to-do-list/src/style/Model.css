@@ -55,11 +55,6 @@
     margin-top: 6px;
     margin-right: 5px;
 }
-.buttonMargin{
-    margin-left: 270px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
 .crossPosition{
     position:relative ;
     bottom: 40px;
@@ -74,13 +69,50 @@
         opacity:0;
     }
     100%{
-        top: 83px;
-        left: 4px;
+        top: 238px;
+        left: 7px;
         transform:translateY(0) scale(1);
         opacity:1;
     }
 }
 
+.buttonMargin{
+    margin-left: 250px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    background-color: aqua;
+    border-color: aqua;
+    color: white;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    position: relative; 
+}
+
+.buttonMargin:hover {
+    background-color: rgb(0, 231, 231);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.buttonMargin span::after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 50%; /* Adjust top position */
+    right: 10px; /* Adjust right position */
+    transform: translateY(-50%); /* Center vertically */
+    transition: opacity 0.5s ease; /* Apply transition to opacity only */
+}
+
+.buttonMargin:hover span {
+    padding-right: 10px; /* Increase padding for space for the arrow */
+}
+
+.buttonMargin:hover span::after {
+    opacity: 1;
+    right: 15px; 
+}
 
 
 @media screen and (max-width: 768px) {
@@ -98,8 +130,8 @@
         opacity:0;
     }
     100%{
-        top: 55%;
-        left: 20%;
+        top: 238.1px;
+        left: 6.1px;
         transform:translateY(0) scale(1);
         opacity:1;
     }

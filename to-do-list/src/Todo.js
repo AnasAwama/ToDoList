@@ -1,26 +1,104 @@
 import React,{useState} from "react";
 import { BrowserRouter as Router, Routes,Route,Link } from "react-router-dom";
 import './style/Body.css';
+import './style/nav.css';
 import  {AddItem}  from "./Model/addItem.jsx";
+import  {addTask}  from "./Model/addTask.jsx";
+import  {EditItem}  from "./Model/editItem.jsx";
 
 class Home extends React.Component {
     
     constructor(props) {
         super(props);
         this.state={
-            list:["In progress","Done"],
+            list:[],
             item : ["High priority", "Medium priority" ,"Low priority", ],
             tasks:{
             high:["Send Email"],
             medium:["Do Project", "contact Manager"],
             low:["send Project"],
-            openAddItem : false
+            openAddItem : false,
+            openEditItem : false,
+            openAddTask : false,
+            lName:"",
+
         },
         }
     }
-    
+
+    getList = async ()=>{
+        try{
+            const ListName= await fetch("http://localhost:8081/list",{
+                method:"GET",
+                headers:{"Content-Type": "application/json",
+                Accept:"application/json",
+            },
+        });
+        console.log(ListName);
+            const dataList = await ListName.json();
+            console.log(dataList);
+            if(ListName.ok){
+                this.setState({ lName: dataList[0].listName });
+                console.log("Data is",this.state.lName);
+            }else {
+                console.error("Response not OK:", ListName.statusText);
+            }
+        }catch(e){
+            console.error("Error during fetch:", e);
+        }
+    } 
+
+    getStatus = async ()=>{
+        try{
+            const statusTask= await fetch("http://localhost:8081/status",{
+                method:"GET",
+                headers:{"Content-Type": "application/json",
+                Accept:"application/json",
+            },
+        });
+        console.log(statusTask);
+            const dataStat = await statusTask.json();
+            console.log(dataStat);
+            if(statusTask.ok){
+                this.setState({ list: dataStat });
+                console.log("Data of the status", this.state.list);
+                
+                console.log("Data of the status",this.state.list);
+            }else {
+                console.error("Response not OK:", statusTask.statusText);
+            }
+        }catch(e){
+            console.error("Error during fetch:", e);
+        }
+    } 
+
+    componentDidMount() {
+        this.getList();
+        this.getStatus();
+    }
+
+    menuToggle() {
+        const toggleMenu = document.querySelector(".menu");
+        toggleMenu.classList.toggle("active");
+    }
+
+    userToggle() {
+        const toggleMenu = document.querySelector(".UserAnimat");
+        toggleMenu.classList.toggle("activeUser");
+    }
+
     addItems = ()=>{
         this.setState(prevState=>({openAddItem:!prevState.openAddItem}))
+        
+    };
+
+    editItems = ()=>{
+        this.setState(prevState=>({openEditItem:!prevState.openEditItem}))
+        
+    };
+
+    addTasks = ()=>{
+        this.setState(prevState=>({openAddTask:!prevState.openAddTask}))
         
     };
 
@@ -37,7 +115,7 @@ class Home extends React.Component {
         return(task)
     }
     render() {
-        
+        const { list } = this.state;
 
         return(
         <body className="bgColor" >
@@ -70,31 +148,50 @@ class Home extends React.Component {
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <div>
+                    <div className="profileAlign"><span onClick={()=>this.userToggle()}><img className="profileStyle" src={require(`./image/profile.png`)}/></span>
+                        <div className="UserAnimat">
+                            <div className="action">
+                                <div className="profile" onClick={()=>this.menuToggle()}>
+                                    <p  class="">userName</p>
+                                </div>
+                                <div className="menu">
+                                    <ul>
+                                        <li>
+                                            <img className="img2" src={require("./image/edit-profile.png")}/><a to="/Edit">Edit Profile</a>
+                                        </li>
+                                        <li>
+                                            <img className="img2" src={require("./image/logout.png")} /><input type="button" className="logoutButton" value="Logout" onClick={this.handleLogout}/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
             </nav>
             <div>
             
-                <h4>to do list<button class="opacityButton" onClick={this.addItems}> + </button></h4>
+                <h4>{this.state.lName} list<button class="opacityButton" onClick={this.addTasks}> + </button></h4>
                 {this.state.openAddItem && <AddItem openAddItem={this.state.openAddItem} setOpenItem={this.addItems}/>}
+                {this.state.openEditItem && <EditItem openEditItem={this.state.openEditItem} setOpenItem={this.editItems}/>}
+                {this.state.openAddTask && <AddItem openAddTask={this.state.openAddTask} setOpenItem={this.addTasks}/>}
                 <div class="backGround">
                     <div class="alignRow" >
                             <div class="Border">
                                 <div class="marginLeft">
-                                    <p>To do <span class="opacity"> | </span>2</p>
+                                {list.length > 0 && <p>{list[0].sName}<span class="opacity"> | </span>2</p>}
                                     <div class="underline"></div><br/>
                                     {this.state.item.map((item, index)=>(
                                     <div key={index}>
                                         <p>{item}I<span class="opacity"> | </span>4</p>
                                         <div class="rowAlign">{this.myTasks(index)}</div>
                                         <div class="itemAlign">
-                                            <button class="opacityButton">+</button>
+                                            <button class="opacityButton" onClick={this.addItems}>+</button>
                                             
-                                            <button class="opacityButton"><img src={require(`./image/edit.png`)}></img></button>
+                                            <button class="opacityButton" onClick={this.editItems}><img src={require(`./image/edit.png`)}></img></button>
                                         </div>
                                         {index !== this.state.item.length - 1 && (
                                             <div style={{ borderColor: 'black' }} className="underline opacity"></div>
@@ -106,27 +203,32 @@ class Home extends React.Component {
                             </div>
                     </div>
                     <div class="alignRow" >
-                        {this.state.list.map((list,indexItem)=>(<div key={indexItem}>
-                            <div class="Border">
-                                <div class="marginLeft">
-                                    <p>{list} <span class="opacity"> | </span>2</p>
-                                    <div class="underline"></div><br/>
-                                    {this.state.item.map((item, index)=>(
-                                    <div key={index}>
-                                        <div class="rowAlign paddingTop">{this.myTasks(index)}</div>
-                                        <div class="itemAlign">
-                                            <button class="opacity">+</button>
-                                            <button class="opacity"><img src={require(`./image/edit.png`)}></img></button>
-                                        </div>
-                                        {index !== this.state.item.length - 1 && (
-                                            <div style={{ borderColor: 'black' }} className="underline opacity"></div>
-                                        )}
-                                        <br/>
+                    {this.state.list.map((item, indexItem) => (
+                        indexItem !== 0 && (
+                            <div key={indexItem}>
+                                <div class="Border">
+                                    <div class="marginLeft">
+                                        <p>{item.sName} <span class="opacity"> | </span>2</p>
+                                        <div class="underline"></div><br/>
+                                        {this.state.item.map((item, index) => (
+                                            <div key={index}>
+                                                <div class="rowAlign paddingTop">{this.myTasks(index)}</div>
+                                                <div class="itemAlign">
+                                                    <button class="opacity" onClick={this.addItems}>+</button>
+                                                    <button class="opacity" onClick={this.editItems}><img src={require(`./image/edit.png`)} alt="edit"></img></button>
+                                                </div>
+                                                {index !== this.state.item.length - 1 && (
+                                                    <div style={{ borderColor: 'black' }} className="underline opacity"></div>
+                                                )}
+                                                <br/>
+                                            </div>
+                                        ))}
                                     </div>
-                                    ))}
                                 </div>
                             </div>
-                        </div>))}
+                        )
+                    ))}
+
                     </div>
                 </div>
             </div>

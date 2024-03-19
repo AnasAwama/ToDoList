@@ -2,7 +2,7 @@ import React from "react";
 import '../style/Model.css';
 
 
-export const AddItem = ({openAddItem, setOpenItem})=>{
+export const addTask = ({openAddTask, setOpenItem})=>{
     
     const handleClose=()=>{
         setOpenItem(false);
