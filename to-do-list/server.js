@@ -31,15 +31,18 @@ app.get('/list', Parser, async(req, res)=> {
 })
 
 app.get('/status', Parser, async(req, res)=> {
-    const sql = "select sName from taskstatus";
+    const sql = "select * from taskstatus";
+    executeQuery(sql, res);
+})
+
+app.get('/priority', Parser, async(req, res)=> {
+    const sql = "select * from priority";
     executeQuery(sql, res);
 })
 
 app.get('/tasks', async(req, res)=> {
     const sql = "select * from task";
     executeQuery(sql, res);
-    data=executeQuery(sql, res);
-    console.log(data);
 })
 
 var server=app.listen(8081,function(){
