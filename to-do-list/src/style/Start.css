@@ -4,7 +4,6 @@
     position: fixed;
     top: 7.5%;
     left: 58.5%;
-    
     height: 686px;
     width: 640px;
     flex-direction: column;
@@ -13,7 +12,7 @@
 .img{
     background-image: url('https://via.placeholder.com/900x686');
     width: 900px;
-    height: 686px;
+    height: 720px;
 }
 
 .inputStyle{
@@ -46,14 +45,14 @@
     content: '\00bb';
     position: absolute;
     opacity: 0;
-    top: 50%; /* Adjust top position */
-    right: 10px; /* Adjust right position */
-    transform: translateY(-50%); /* Center vertically */
-    transition: opacity 0.5s ease; /* Apply transition to opacity only */
+    top: 50%; 
+    right: 10px; 
+    transform: translateY(-50%); 
+    transition: opacity 0.5s ease; 
 }
 
 .ButtonStyle:hover span {
-    padding-right: 25px; /* Increase padding for space for the arrow */
+    padding-right: 25px; 
 }
 
 .ButtonStyle:hover span::after {
@@ -106,9 +105,9 @@
 
 @media screen and (max-width: 768px) {
     .rightBorder{
-        position: absolute;
-        top: 50%;
-        left: 50%;
+        position: static;
+        padding-bottom: 104%;
+        padding-left: 100%;
         transform: translate(-50%, -50%);
         display: flex;
         justify-content: center;
@@ -122,7 +121,7 @@
     .img{
         background-image: url('https://via.placeholder.com/767x686');
         width: 767px;
-        height: 686px;
+        height: 720px;
     }
     .SmallBorder{
         display: flex;

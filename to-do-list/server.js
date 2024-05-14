@@ -45,6 +45,11 @@ app.get('/tasks', async(req, res)=> {
     executeQuery(sql, res);
 })
 
+app.get("/log", async (req, res) => {
+  const sql = "select * from LogIn";
+  executeQuery(sql, res);
+});
+
 var server=app.listen(8081,function(){
     var host = server.address().address
     var port= server.address().port

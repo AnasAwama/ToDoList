@@ -1,7 +1,7 @@
 
 .bgColor{
     background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-    height: 742px;
+    height: 776px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -141,6 +141,24 @@ h4{
     opacity: 1; 
     visibility: visible; 
     left: calc(100% + 40px);
+}
+
+.Sright{
+    margin-right: 20px;
+    width: 80px;
+    height: 35px;
+    font-size: 15px !important;
+    text-align: center;
+    line-height: 35px
+}
+
+.Lright{
+    margin-right: 10px;
+    width: 80px;
+    height: 35px;
+    font-size: 15px !important;
+    text-align: center;
+    line-height: 35px
 }
 
 
