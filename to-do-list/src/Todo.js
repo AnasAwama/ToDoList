@@ -20,11 +20,12 @@ class Todo extends React.Component {
         taskPriority: [],
         taskStatus: [],
       },
+      priorityCount: {},
       openAddItem: false,
       openEditItem: false,
       openAddTask: false,
-        lName: [],
-      userName:[],
+      lName: [],
+      userName: [],
     };
   }
 
@@ -128,16 +129,24 @@ class Todo extends React.Component {
         const taskNames = taskData.map((item) => item.task);
         const taskPriorities = taskData.map((item) => item.taskPriority);
         const taskStatus = taskData.map((item) => item.statusId);
+
+        const priorityCount = taskPriorities.reduce((acc, priority) => {
+          acc[priority] = (acc[priority] || 0) + 1;
+          return acc;
+        }, {});
+
         this.setState({
           tasks: {
             taskName: taskNames,
             taskPriority: taskPriorities,
             taskStatus: taskStatus,
           },
+          priorityCount: priorityCount,
         });
         console.log("Data of the taskName ", taskNames);
         console.log("Data of the taskPriority ", taskPriorities);
         console.log("Data of the taskStatus ", taskStatus);
+        console.log("Priority counts: ", priorityCount);
       } else {
         console.error("Response not OK:", tasksResponse.statusText);
       }
@@ -158,9 +167,9 @@ class Todo extends React.Component {
       console.log("logIn ", logIn);
       const logData = await logIn.json();
       console.log(logData);
-        if (logIn.ok) {
-        const userNames=logData
-        this.setState({ userNames:this.state.userName});
+      if (logIn.ok) {
+        const userNames = logData;
+        this.setState({ userNames: this.state.userName });
         console.log("Data of the userName ", userNames);
       } else {
         console.error("Response not OK:", logData.statusText);
@@ -200,41 +209,57 @@ class Todo extends React.Component {
     this.setState((prevState) => ({ openAddTask: !prevState.openAddTask }));
   };
 
-  myTasks(priorityIndex, statusIndex) {
-    const { tasks } = this.state;
+  myPrioity(priorityNumber) {
+    const { statusIds, tasks, priorityCount } = this.state;
+    let newPriorityCount = 0;
+    let priorityTotal = 0
+    if (statusIds[0]==1){
+      for (const [key, value] of Object.entries(priorityCount)) {
+        if (key == tasks.taskPriority[priorityNumber]) {
+          newPriorityCount = value;
+          priorityTotal += newPriorityCount;
+          console.log("priority One is" + newPriorityCount + priorityTotal);
 
-    if (
-      !tasks ||
-      !tasks.taskName ||
-      !tasks.taskPriority ||
-      !tasks.taskStatus ||
-      !Array.isArray(tasks.taskName) ||
-      !Array.isArray(tasks.taskPriority) ||
-      !Array.isArray(tasks.taskStatus)
-    ) {
-      console.error("Tasks are not in the expected format:", tasks);
-      return null;
+          return priorityTotal, newPriorityCount;
+        }
+      }
     }
+  };
 
-    const { taskName, taskPriority, taskStatus } = tasks;
+  myTasks(priorityIndex, statusIndex) {
+  const { tasks } = this.state;
 
-    // Filter tasks based on both task priority and status ID
-    const filteredTasks = taskName.filter((name, idx) => {
-      return (
-        taskPriority[idx] === priorityIndex + 1 &&
-        taskStatus[idx] === statusIndex + 1
-      );
-    });
-
-    // Render filtered tasks
-    const taskElements = filteredTasks.map((name, idx) => (
-      <div key={idx}>
-        <div className="smallBorder">{name}</div>
-      </div>
-    ));
-
-    return taskElements;
+  if (
+    !tasks ||
+    !tasks.taskName ||
+    !tasks.taskPriority ||
+    !tasks.taskStatus ||
+    !Array.isArray(tasks.taskName) ||
+    !Array.isArray(tasks.taskPriority) ||
+    !Array.isArray(tasks.taskStatus)
+  ) {
+    console.error("Tasks are not in the expected format:", tasks);
+    return null;
   }
+
+  const { taskName, taskPriority, taskStatus } = tasks;
+
+  const filteredTasks = taskName.filter((name, idx) => {
+    return (
+      taskPriority[idx] === priorityIndex + 1 &&
+      taskStatus[idx] === statusIndex + 1
+    );
+  });
+
+  const taskElements = filteredTasks.map((name, idx) => (
+    <div key={idx}>
+      <div className="smallBorder">{name}</div>
+    </div>
+  ));
+
+  return taskElements;
+    };
+
 
   render() {
     const { statusName } = this.state;
@@ -307,7 +332,7 @@ class Todo extends React.Component {
                 </li>
               </ul>
               <div>
-                {this.state.userName.session==1 ? (
+                {this.state.userName.session == 1 ? (
                   <div className="profileAlign">
                     <span onClick={() => this.userToggle()}>
                       <img
@@ -407,60 +432,6 @@ class Todo extends React.Component {
               setOpenItem={this.addTasks}
             />
           )}
-          {/* <div class="backGround">
-                    
-                    <div class="alignRow" >
-                            <div class="Border">
-                                <div class="marginLeft">
-                                {statusName.length > 0 && <p>{statusName[0]}<span class="opacity"> | </span>2</p>}
-                                    <div class="underline"></div><br/>
-                                    {this.state.priority.map((item, index)=>(
-                                    <div key={index}>
-                                        <p>{item}I<span class="opacity"> | </span>4</p>
-                                        <div class="rowAlign">{this.myTasks(index)}</div>
-                                        <div class="itemAlign">
-                                            <button class="opacityButton" onClick={this.addItems}>+</button>
-                                            
-                                            <button class="opacityButton" onClick={this.editItems}><img src={require(`./image/edit.png`)}></img></button>
-                                        </div>
-                                        {index !== this.state.priority.length - 1 && (
-                                            <div style={{ borderColor: 'black' }} className="underline opacity"></div>
-                                        )}
-                                        <br/>
-                                    </div>
-                                    ))}
-                                </div>
-                            </div>
-                    </div>
-                    <div class="alignRow" >
-                    {this.state.statusName.map((item, indexItem) => (
-                        indexItem !== 0 && (
-                            <div key={indexItem}>
-                                <div class="Border">
-                                    <div class="marginLeft">
-                                        <p>{item} <span class="opacity"> | </span>2</p>
-                                        <div class="underline"></div><br/>
-                                        {this.state.priority.map((item, index) => (
-                                            <div key={index}>
-                                                <div class="rowAlign paddingTop">{this.myTasks(index)}</div>
-                                                <div class="itemAlign">
-                                                    <button class="opacity" onClick={this.addItems}>+</button>
-                                                    <button class="opacity" onClick={this.editItems}><img src={require(`./image/edit.png`)} alt="edit"></img></button>
-                                                </div>
-                                                {index !== this.state.priority.length - 1 && (
-                                                    <div style={{ borderColor: 'black' }} className="underline opacity"></div>
-                                                )}
-                                                <br/>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    ))}
-                    </div>
-                    
-                </div> */}
           <div class="backGround">
             <div class="alignRow">
               <div class="Border">
@@ -475,7 +446,8 @@ class Todo extends React.Component {
                       {this.state.priority.map((item, index) => (
                         <div key={index}>
                           <p>
-                            {item} <span class="opacity"> | </span>4
+                            {item} <span class="opacity"> | </span>
+                            {this.myPrioity(index)}
                           </p>
                           <div class="rowAlign">{this.myTasks(index, 0)}</div>
                           <div class="itemAlign">
@@ -552,3 +524,9 @@ class Todo extends React.Component {
   }
 }
 export default Todo;
+
+// {
+//   Object.entries(priorityCount).map(([priority, count]) => (
+//     <span key={priority}>{count}</span>
+//   ));
+// }

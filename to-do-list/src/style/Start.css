@@ -103,6 +103,25 @@
     align-items: center;
 }
 
+.bullets{
+    list-style-type: none;
+    padding: 0;
+}
+.bulletsLi{
+    padding-top: 6px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+.bulletsLink{
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none; 
+    color: inherit;
+}
+.bulletsLink:hover {
+  color: #555; 
+}
+
 @media screen and (max-width: 768px) {
     .rightBorder{
         position: static;
